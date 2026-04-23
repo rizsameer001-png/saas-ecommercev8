@@ -119,7 +119,13 @@ userSchema.methods.toSafeObject = function() {
 };
 
 // ─── Virtual: Full address ────────────────────────────────────────────────────
+// userSchema.virtual('defaultAddress').get(function() {
+//   return this.addresses.find(a => a.isDefault) || this.addresses[0];
+// });
+
 userSchema.virtual('defaultAddress').get(function() {
+  if (!this.addresses || this.addresses.length === 0) return null;
+
   return this.addresses.find(a => a.isDefault) || this.addresses[0];
 });
 
